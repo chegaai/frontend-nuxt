@@ -1,16 +1,29 @@
 <template>
   <v-container style="height: 100%">
-    <br />
-    <br />
+    <br>
+    <br>
     <v-row
       justify="center"
       align="center"
     >
       <logo />
     </v-row>
-    <br />
-    <br />
-    <br />
+    <br>
+    <br>
+    <br>
+    <v-row
+      justify="center"
+      align="center"
+    >
+      <v-expand-transition>
+        <v-alert
+          v-if="alert.display"
+          :type="alert.type"
+        >
+          {{ alert.message }}
+        </v-alert>
+      </v-expand-transition>
+    </v-row>
     <v-row
       justify="center"
       align="center"
@@ -29,12 +42,19 @@
           <v-tabs-items v-model="tab">
             <v-tab-item>
               <v-container>
-                <login-form />
+                <login-form
+                  @success="login"
+                  @error="displayError"
+                />
               </v-container>
             </v-tab-item>
+
             <v-tab-item>
               <v-container>
-                <signup-form />
+                <signup-form
+                  @success="signup"
+                  @error="displayError"
+                />
               </v-container>
             </v-tab-item>
           </v-tabs-items>
@@ -43,8 +63,9 @@
     </v-row>
   </v-container>
 </template>
- 
+
 <script>
+/* eslint-disable no-console */
 import LoginForm from '@/components/auth/LoginForm'
 import SignupForm from '@/components/auth/SignupForm'
 import Logo from '@/components/Logo'
@@ -52,16 +73,37 @@ import Logo from '@/components/Logo'
 export default {
   name: 'LoginPage',
   layout: 'blank',
-  data () {
-    return {
-      tab: 0
-    }
-  },
-  head: () => ({ title: 'Login' }),
   components: {
     LoginForm,
     SignupForm,
     Logo
-  }
+  },
+  data: () => ({
+    tab: 0,
+    alert: {
+      display: false,
+      type: 'success',
+      message: ''
+    }
+  }),
+  methods: {
+    displayAlert (message, type = 'success') {
+      this.alert.message = message
+      this.alert.type = type
+      this.alert.display = true
+    },
+    login ({ token }) {
+      this.$store.dispatch('auth/login', token)
+      this.$router.push('/')
+    },
+    signup (user) {
+      this.tab = 0
+      this.displayAlert(`Boas vindas, ${user.profile.name}. Você já pode realizar o seu login!`)
+    },
+    displayError (error) {
+      console.error(error)
+    }
+  },
+  head: () => ({ title: 'Login' })
 }
 </script>
