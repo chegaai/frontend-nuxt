@@ -93,26 +93,16 @@
     </v-row>
 
     <v-expand-transition>
-      <v-alert
-        v-if="hasError"
-        type="error"
-        transition="expand-transition"
-      >
+      <v-alert v-if="hasError" type="error" transition="expand-transition">
         {{ errorMessage }}
       </v-alert>
     </v-expand-transition>
 
     <!-- Submit -->
-    <v-btn
-      :disabled="!isValid"
-      block
-      color="primary"
-      depressed
-      @click="signUp"
-    >
+    <v-btn :disabled="!isValid" block color="primary" depressed @click="signUp">
       Realizar Cadastro
     </v-btn>
-    <br>
+    <br />
     <pre>{{ JSON.stringify(formData, null, 4) }}</pre>
   </v-form>
 </template>
@@ -162,7 +152,7 @@ export default {
       login: [
         rules.required,
         rules.minSize(3),
-        rules.regex(/[a-z0-9_\-.]+/ig, 'O login só pode conter letras, números, e os seguintes caracteres: _ - .')
+        rules.regex(/[a-z0-9_\-.]+/gi, 'O login só pode conter letras, números, e os seguintes caracteres: _ - .')
       ],
       password: [rules.required, rules.minSize(8)],
       name: [rules.required],
@@ -172,17 +162,18 @@ export default {
     LANGUAGES
   }),
   methods: {
-    setLocation ({ city = '', country = '', state = '' }) {
+    setLocation({ city = '', country = '', state = '' }) {
       this.formData.profile.location = { city, country, state }
     },
-    async signUp () {
+    async signUp() {
       this.loading = true
 
-      await this.$services.auth.signUp(this.formData)
-        .then((user) => {
+      await this.$services.auth
+        .signUp(this.formData)
+        .then(user => {
           this.$emit('success', user)
         })
-        .catch((err) => {
+        .catch(err => {
           this.hasError = true
           this.errorMessage = formatError(err)
           this.$emit('error', err)

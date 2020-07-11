@@ -1,8 +1,5 @@
 <template>
-  <v-form
-    ref="form"
-    v-model="isValid"
-  >
+  <v-form ref="form" v-model="isValid">
     <v-text-field
       v-model="handle"
       :readonly="loading"
@@ -23,23 +20,12 @@
     />
 
     <v-expand-transition>
-      <v-alert
-        v-if="hasError"
-        type="error"
-        transition="expand-transition"
-      >
+      <v-alert v-if="hasError" type="error" transition="expand-transition">
         {{ errorMessage }}
       </v-alert>
     </v-expand-transition>
 
-    <v-btn
-      :disabled="!isValid"
-      :loading="loading"
-      block
-      color="primary"
-      depressed
-      @click="login"
-    >
+    <v-btn :disabled="!isValid" :loading="loading" block color="primary" depressed @click="login">
       Login
     </v-btn>
   </v-form>
@@ -73,21 +59,24 @@ export default {
     }
   }),
   methods: {
-    resetErrors () {
-      if (!this.$refs.form) { return }
+    resetErrors() {
+      if (!this.$refs.form) {
+        return
+      }
       this.$refs.form.resetValidation()
       this.hasError = false
       this.errorMessage = ''
     },
-    async login () {
+    async login() {
       this.resetErrors()
       this.loading = true
 
-      await this.$services.auth.login(this.handle, this.password)
-        .then((token) => {
+      await this.$services.auth
+        .login(this.handle, this.password)
+        .then(token => {
           this.$emit('success', { token })
         })
-        .catch((err) => {
+        .catch(err => {
           this.hasError = true
           this.errorMessage = formatError(err)
           this.$emit('error', err)

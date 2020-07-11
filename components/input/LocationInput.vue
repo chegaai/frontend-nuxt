@@ -1,19 +1,19 @@
 <template>
   <gmap-autocomplete
-    @place_changed="processLocationChanged"
     :options="{ componentRestrictions: { country: 'br' } }"
     select-first-on-enter
+    @place_changed="processLocationChanged"
   >
     <template v-slot:input="slotProps">
       <v-text-field
-        :loading="loading"
         ref="input"
-        @input="value => loading = Boolean(value)"
-        v-on:listeners="slotProps.listeners"
-        v-on:attrs="slotProps.attrs"
+        :loading="loading"
         :value="placeName"
         :placeholder="placeholder"
         v-bind="inputOptions"
+        @input="value => (loading = Boolean(value))"
+        @listeners="slotProps.listeners"
+        @attrs="slotProps.attrs"
         @click:clear="clear"
       />
     </template>
@@ -40,56 +40,67 @@
 
 <script>
 export default {
-  name: "LocationInput",
+  name: 'LocationInput',
   props: {
     value: {
-      type: Object
+      type: Object,
+      default: () => ({})
     },
     rules: {
-      type: Array
+      type: Array,
+      default: () => []
     },
     placeholder: {
-      type: String
+      type: String,
+      default: ''
     },
     inputOptions: {
       type: Object,
-      default: {}
+      default: () => ({})
     }
   },
   data: () => ({
-    placeName: "",
+    placeName: '',
     loading: false,
     location: {
-      name: "",
-      placeId: "",
-      address: "",
-      zipCode: "",
-      number: "",
-      complement: "",
-      country: "",
-      city: "",
-      state: "",
+      name: '',
+      placeId: '',
+      address: '',
+      zipCode: '',
+      number: '',
+      complement: '',
+      country: '',
+      city: '',
+      state: '',
       lat: null,
       lng: null
     }
   }),
+  watch: {
+    value(value) {
+      this.location = { ...value }
+    }
+  },
+  mounted() {
+    this.location = { ...this.value }
+  },
   // computed: {
   //   canShowMaps () {
   //     return !!this.location.lat && !!this.location.lng
   //   }
   // },
   methods: {
-    clear () {
+    clear() {
       this.location = {
-        name: "",
-        placeId: "",
-        address: "",
-        zipCode: "",
-        number: "",
-        complement: "",
-        country: "",
-        city: "",
-        state: "",
+        name: '',
+        placeId: '',
+        address: '',
+        zipCode: '',
+        number: '',
+        complement: '',
+        country: '',
+        city: '',
+        state: '',
         lat: null,
         lng: null
       }
@@ -97,16 +108,16 @@ export default {
       this.placeName = ''
       this.loading = false
     },
-    processLocationChanged (payload) {
+    processLocationChanged(payload) {
       this.location.placeId = payload.place_id
       this.location.name = payload.name
       this.location.address = payload.formatted_address
 
-      const STATE_KEY = "administrative_area_level_1"
-      const CITY_KEY = "administrative_area_level_2"
-      const COUNTRY_KEY = "country"
-      const NUMBER_KEY = "street_number"
-      const ZIP_CODE_KEY = "postal_code"
+      const STATE_KEY = 'administrative_area_level_1'
+      const CITY_KEY = 'administrative_area_level_2'
+      const COUNTRY_KEY = 'country'
+      const NUMBER_KEY = 'street_number'
+      const ZIP_CODE_KEY = 'postal_code'
 
       payload.address_components.forEach(address => {
         if (address.types.includes(STATE_KEY)) {
@@ -127,22 +138,16 @@ export default {
       })
 
       if (payload.name && payload.formatted_address) {
-        this.placeName = this.location.city ? `${payload.formatted_address}` : `${payload.name} - ${payload.formatted_address}`
+        this.placeName = this.location.city
+          ? `${payload.formatted_address}`
+          : `${payload.name} - ${payload.formatted_address}`
       }
 
       this.location.lat = Number(payload.geometry.location.lat())
       this.location.lng = Number(payload.geometry.location.lng())
       this.loading = false
-      this.$emit("input", this.location)
-    }
-  },
-  mounted () {
-    this.location = { ...this.value }
-  },
-  watch: {
-    value (value) {
-      this.location = { ...value }
+      this.$emit('input', this.location)
     }
   }
-};
+}
 </script>

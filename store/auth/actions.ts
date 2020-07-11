@@ -4,7 +4,7 @@ import { ActionContext } from 'vuex'
 import { LoginState } from './types'
 import ls from '~/utils/local-storage'
 
-type Context = ActionContext<LoginState, {}>
+type Context = ActionContext<LoginState, Record<string, unknown>>
 
 export const login = async ({ commit }: Context, token: string) => {
   const URL = `${process.env.API_BASE_URL}/profiles/me`

@@ -1,38 +1,22 @@
 <template>
-  <v-container style="height: 100%">
-    <br>
-    <br>
-    <v-row
-      justify="center"
-      align="center"
-    >
+  <v-container style="height: 100%;">
+    <br />
+    <br />
+    <v-row justify="center" align="center">
       <logo />
     </v-row>
-    <br>
-    <br>
-    <br>
-    <v-row
-      justify="center"
-      align="center"
-    >
+    <br />
+    <br />
+    <br />
+    <v-row justify="center" align="center">
       <v-expand-transition>
-        <v-alert
-          v-if="alert.display"
-          :type="alert.type"
-        >
+        <v-alert v-if="alert.display" :type="alert.type">
           {{ alert.message }}
         </v-alert>
       </v-expand-transition>
     </v-row>
-    <v-row
-      justify="center"
-      align="center"
-      no-gutters
-    >
-      <v-col
-        md="4"
-        align-self="center"
-      >
+    <v-row justify="center" align="center" no-gutters>
+      <v-col md="4" align-self="center">
         <v-card>
           <v-tabs v-model="tab">
             <v-tab>Login</v-tab>
@@ -42,19 +26,13 @@
           <v-tabs-items v-model="tab">
             <v-tab-item>
               <v-container>
-                <login-form
-                  @success="login"
-                  @error="displayError"
-                />
+                <login-form @success="login" @error="displayError" />
               </v-container>
             </v-tab-item>
 
             <v-tab-item>
               <v-container>
-                <signup-form
-                  @success="signup"
-                  @error="displayError"
-                />
+                <signup-form @success="signup" @error="displayError" />
               </v-container>
             </v-tab-item>
           </v-tabs-items>
@@ -87,20 +65,20 @@ export default {
     }
   }),
   methods: {
-    displayAlert (message, type = 'success') {
+    displayAlert(message, type = 'success') {
       this.alert.message = message
       this.alert.type = type
       this.alert.display = true
     },
-    login ({ token }) {
+    login({ token }) {
       this.$store.dispatch('auth/login', token)
       this.$router.push('/')
     },
-    signup (user) {
+    signup(user) {
       this.tab = 0
       this.displayAlert(`Boas vindas, ${user.profile.name}. Você já pode realizar o seu login!`)
     },
-    displayError (error) {
+    displayError(error) {
       console.error(error)
     }
   },

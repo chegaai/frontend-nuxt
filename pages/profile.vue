@@ -3,24 +3,15 @@
     <h1>Perfil</h1>
     <v-form>
       <v-container>
-        <v-row
-          justify="center"
-          class="pb-6"
-        >
+        <v-row justify="center" class="pb-6">
           <profile-picture v-model="formData.picture" />
         </v-row>
         <v-row>
           <v-col>
-            <v-text-field
-              v-model="formData.name"
-              label="Nome"
-            />
+            <v-text-field v-model="formData.name" label="Nome" />
           </v-col>
           <v-col>
-            <v-text-field
-              v-model="formData.lastName"
-              label="Sobrenome"
-            />
+            <v-text-field v-model="formData.lastName" label="Sobrenome" />
           </v-col>
         </v-row>
         <v-row>
@@ -60,15 +51,15 @@ export default {
     ...mapState('auth', ['userData'])
   },
   watch: {
-    userData (content) {
+    userData(content) {
       this.formData = clone(content)
     }
   },
-  mounted () {
+  mounted() {
     this.formData = clone(this.userData)
   },
   methods: {
-    pickImage () {
+    pickImage() {
       alert('pick')
     }
   }

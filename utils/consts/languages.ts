@@ -1,4 +1,4 @@
-export type Language = { name: string, value: string }
+export type Language = { name: string; value: string }
 
 export const LANGUAGES: Language[] = [
   {

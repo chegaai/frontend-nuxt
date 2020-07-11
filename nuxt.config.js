@@ -3,8 +3,8 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   mode: 'universal',
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
     titleTemplate: '%s - chega.ai',
     title: process.env.npm_package_name || '',
@@ -20,31 +20,24 @@ export default {
     ]
   },
   /*
-  ** Customize the progress-bar color
-  */
+   ** Customize the progress-bar color
+   */
   loading: { color: '#fff' },
   /*
-  ** Global CSS
-  */
-  css: [
-  ],
+   ** Global CSS
+   */
+  css: [],
   /*
-  ** Plugins to load before mounting the App
-  */
-  plugins: [
-    '~/plugins/services',
-    '~/plugins/google-maps'
-  ],
+   ** Plugins to load before mounting the App
+   */
+  plugins: ['~/plugins/services', '~/plugins/google-maps'],
   /*
-  ** Nuxt.js dev-modules
-  */
-  buildModules: [
-    '@nuxt/typescript-build',
-    '@nuxtjs/vuetify'
-  ],
+   ** Nuxt.js dev-modules
+   */
+  buildModules: ['@nuxt/typescript-build', '@nuxtjs/vuetify'],
   /*
-  ** Nuxt.js modules
-  */
+   ** Nuxt.js modules
+   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
@@ -53,15 +46,14 @@ export default {
     '@nuxtjs/dotenv'
   ],
   /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
-  axios: {
-  },
+   ** Axios module configuration
+   ** See https://axios.nuxtjs.org/options
+   */
+  axios: {},
   /*
-  ** vuetify module configuration
-  ** https://github.com/nuxt-community/vuetify-module
-  */
+   ** vuetify module configuration
+   ** https://github.com/nuxt-community/vuetify-module
+   */
   vuetify: {
     treeShake: true,
     customVariables: ['~/assets/variables.scss'],
@@ -85,14 +77,13 @@ export default {
     }
   },
   /*
-  ** Build configuration
-  */
+   ** Build configuration
+   */
   build: {
     /*
-    ** You can extend webpack config here
-    */
-    extend (config, ctx) {
-    },
+     ** You can extend webpack config here
+     */
+    // extend(_config, _ctx) {},
     transpile: ['gmap-vue']
   }
 }

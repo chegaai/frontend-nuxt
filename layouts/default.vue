@@ -1,40 +1,17 @@
 <template>
   <v-app dark>
-    <v-app-bar
-      fixed
-      app
-    >
-      <router-link
-        to="/"
-        style="text-decoration: none; color: inherit"
-        class="font-weight-bold"
-      >
+    <v-app-bar fixed app>
+      <router-link to="/" style="text-decoration: none; color: inherit;" class="font-weight-bold">
         <v-toolbar-title v-text="title" />
       </router-link>
       <v-spacer />
-      <v-btn
-        v-if="!loggedIn"
-        to="/login"
-        text
-      >
+      <v-btn v-if="!loggedIn" to="/login" text>
         Login
       </v-btn>
-      <v-menu
-        v-if="loggedIn"
-        open-on-hover
-        offset-y
-      >
+      <v-menu v-if="loggedIn" open-on-hover offset-y>
         <template v-slot:activator="{ on, attrs }">
-          <v-avatar
-            right
-            size="40"
-            v-bind="attrs"
-            v-on="on"
-          >
-            <v-img
-              alt="Profile picture"
-              :src="userData.picture"
-            />
+          <v-avatar right size="40" v-bind="attrs" v-on="on">
+            <v-img alt="Profile picture" :src="userData.picture" />
           </v-avatar>
         </template>
         <v-list>
@@ -42,12 +19,7 @@
             {{ fullName }}
           </v-list-item>
           <v-divider />
-          <v-list-item
-            v-for="(item, i) in menuItems"
-            :key="i"
-            v-bind="item.attrs"
-            v-on="item.on"
-          >
+          <v-list-item v-for="(item, i) in menuItems" :key="i" v-bind="item.attrs" v-on="item.on">
             <v-list-item-avatar>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-avatar>
@@ -73,7 +45,7 @@ import ls from '~/utils/local-storage'
 export default {
   name: 'Default',
   components: { VList },
-  data () {
+  data() {
     return {
       clipped: false,
       drawer: false,
@@ -100,17 +72,19 @@ export default {
     ...mapState('auth', ['loggedIn', 'token', 'userData']),
     ...mapGetters('auth', ['fullName'])
   },
-  mounted () {
+  mounted() {
     const userData = ls.getItem('userData')
     const token = ls.getItem('token')
 
-    if (!token || !userData) { return }
+    if (!token || !userData) {
+      return
+    }
 
     this.$store.commit('auth/setToken', token)
     this.$store.commit('auth/setUserData', userData)
   },
   methods: {
-    logout () {
+    logout() {
       this.$store.dispatch('auth/logout')
     }
   }

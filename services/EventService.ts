@@ -7,11 +7,12 @@ const formatError = (err: any) => {
 }
 
 const getAll = (http: AxiosInstance) => () =>
-  http.get('/events')
+  http
+    .get('/events')
     .then(({ data }) => data)
     .catch(formatError)
 
-export function factory (baseURL: string) {
+export function factory(baseURL: string) {
   const http = axios.create({
     baseURL,
     timeout: 5000

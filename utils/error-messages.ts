@@ -10,9 +10,7 @@ const MESSAGES: Messages = {
 }
 
 export const getMessageFromCode = (module: string, code: string, defaultValue: string) =>
-  MESSAGES[ module ] && MESSAGES[ module ][ code ]
-    ? MESSAGES[ module ][ code ]
-    : defaultValue
+  MESSAGES[module] && MESSAGES[module][code] ? MESSAGES[module][code] : defaultValue
 
 export const getMessageFromError = (module: string, error: any) =>
   error.error && error.error.code

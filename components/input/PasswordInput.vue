@@ -13,7 +13,12 @@
 <script>
 export default {
   name: 'PasswordInput',
-  props: ['value'],
+  props: {
+    value: {
+      type: String,
+      default: ''
+    }
+  },
   data: () => ({
     show: false
   })

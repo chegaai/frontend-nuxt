@@ -1,30 +1,13 @@
 <template>
   <div>
-    <input
-      ref="pictureUpload"
-      type="file"
-      name="picture"
-      hidden
-      @change="setNewPicture"
-    >
+    <input ref="pictureUpload" type="file" name="picture" hidden @change="setNewPicture" />
 
-    <v-avatar
-      size="200"
-      style="cursor: pointer"
-      title="Alterar imagem"
-      @click="openFilePicker"
-    >
+    <v-avatar size="200" style="cursor: pointer;" title="Alterar imagem" @click="openFilePicker">
       <v-hover v-slot:default="{ hover }">
         <v-img :src="value">
           <v-fade-transition>
-            <div
-              v-if="hover"
-              class="align-self-center v-card--reveal flex-grow-1 white"
-            >
-              <v-icon
-                x-large
-                color="grey"
-              >
+            <div v-if="hover" class="align-self-center v-card--reveal flex-grow-1 white">
+              <v-icon x-large color="grey">
                 photo_camera
               </v-icon>
             </div>
@@ -36,16 +19,17 @@
 </template>
 
 <script>
-const readFileAsDataURL = file => new Promise((resolve, reject) => {
-  const fileReader = new FileReader()
-  fileReader.onloadend = () => {
-    resolve(fileReader.result)
-  }
+const readFileAsDataURL = file =>
+  new Promise((resolve, reject) => {
+    const fileReader = new FileReader()
+    fileReader.onloadend = () => {
+      resolve(fileReader.result)
+    }
 
-  fileReader.onerror = reject
+    fileReader.onerror = reject
 
-  fileReader.readAsDataURL(file)
-})
+    fileReader.readAsDataURL(file)
+  })
 
 export default {
   name: 'ProfilePicture',
@@ -53,11 +37,15 @@ export default {
     value: { type: String, required: true }
   },
   methods: {
-    async setNewPicture ({ target: { files: [file] } }) {
+    async setNewPicture({
+      target: {
+        files: [file]
+      }
+    }) {
       const fileDataURL = await readFileAsDataURL(file)
       this.$emit('input', fileDataURL)
     },
-    openFilePicker () {
+    openFilePicker() {
       this.$refs.pictureUpload.click()
     }
   }

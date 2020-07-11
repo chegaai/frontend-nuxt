@@ -14,10 +14,13 @@ export default {
   components: {
     EventCard
   },
-  asyncData: (context) => {
-    return getServicesFromContext(context).events
-      .getAll()
+  asyncData: context => {
+    return getServicesFromContext(context)
+      .events.getAll()
       .then(events => ({ events }))
-  }
+  },
+  data: () => ({
+    events: []
+  })
 }
 </script>
