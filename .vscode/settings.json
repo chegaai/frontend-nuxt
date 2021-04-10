@@ -1,0 +1,9 @@
+{
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "vetur.experimental.templateInterpolationService": true
+}
