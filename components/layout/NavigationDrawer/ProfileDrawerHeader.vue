@@ -3,7 +3,7 @@
     <v-list-item :class="{ 'px-2': isMini }">
       <v-list-item-action>
         <v-avatar :size="40">
-          <v-img :src="$auth.user.picture"></v-img>
+          <v-img :src="$auth.user.picture" />
         </v-avatar>
       </v-list-item-action>
     </v-list-item>
@@ -24,24 +24,24 @@
 </template>
 
 <script>
-  export default {
-    name: 'ProfileDrawerHeader',
-    props: {
-      isMini: {
-        type: Boolean,
-        deafault: true
-      }
-    },
-    computed: {
-      userName() {
-        const { name, lastName } = this.$auth.user
-        return `${name} ${lastName}`
-      }
-    },
-    methods: {
-      toggleMini() {
-        this.$emit('toggleMini')
-      }
+export default {
+  name: 'ProfileDrawerHeader',
+  props: {
+    isMini: {
+      type: Boolean,
+      deafault: true
+    }
+  },
+  computed: {
+    userName() {
+      const { name, lastName } = this.$auth.user
+      return `${name} ${lastName}`
+    }
+  },
+  methods: {
+    toggleMini() {
+      this.$emit('toggleMini')
     }
   }
+}
 </script>

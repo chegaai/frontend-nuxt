@@ -1,4 +1,4 @@
-import colors from 'vuetify/es5/util/colors';
+import colors from 'vuetify/es5/util/colors'
 
 export default {
   /*
@@ -80,7 +80,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(_config, _ctx) {}
   },
   publicRuntimeConfig: {
     placesApiKey: process.env.PLACES_API_KEY,

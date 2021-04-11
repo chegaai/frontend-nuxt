@@ -62,6 +62,7 @@ export default {
         .then((groups) => {
           this.groups = groups
         })
+        // eslint-disable-next-line no-console
         .catch(console.error)
         .finally(() => {
           this.loading = false

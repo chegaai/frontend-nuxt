@@ -25,7 +25,9 @@
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.0.0",
+    "simple-icons": "^4.18.0",
+    "slug": "^4.0.3"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.0",

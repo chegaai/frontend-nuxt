@@ -75,6 +75,7 @@ export default {
     VuetifyLogo
   },
   mounted() {
+    // eslint-disable-next-line no-console
     this.$services.events.getAll().then(console.log)
   },
   head: () => ({
